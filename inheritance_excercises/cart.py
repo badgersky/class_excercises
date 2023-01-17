@@ -9,9 +9,26 @@ class Cart:
         self.products.append((price, name))
 
     def summary(self):
-        price = 0
-        for product in self.products:
-            price += product[0]
-        return price
+        return sum([product[0] for product in self.products])
 
-    
+
+class Discount20PercentCart(Cart):
+
+    def __init__(self):
+        super().__init__()
+
+    def summary(self):
+        return [(product[0] * 0.80, product[1]) for product in self.products]
+
+
+class Above3ProductsCheapestFreeCart(Cart):
+
+    def __init__(self):
+        super().__init__()
+
+    def summary(self):
+        prices = [product[0] for product in self.products]
+        if len(prices) > 3:
+            prices[prices.index(min(prices))] = 0
+
+        return [(price, self.products[i]) for i, price in enumerate(prices)]
