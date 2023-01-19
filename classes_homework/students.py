@@ -18,5 +18,3 @@ class Student:
                 if class_name is None or class_name == row[2]:
                     students.append(cls(row[0], row[1], row[2], row[3], row[4]))
         return students
-
-                    
