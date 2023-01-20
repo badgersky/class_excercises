@@ -79,9 +79,39 @@ class Rook:
         values = list(range(8))
         allowed_moves = []
         for value in values:
-            allowed_moves.append((self.x + value, self.y))
+            allowed_moves.append((self.x, value))
         for value in values:
-            allowed_moves.append((self.x, self.y + value))
+            allowed_moves.append((value, self.y))
+
+        for m in allowed_moves:
+            if m == (self.x, self.y):
+                allowed_moves.remove(m)
+        return allowed_moves
+
+    def move(self, x, y):
+        if (x, y) in self.list_allowed_moves(cb):
+            self.x = x
+            self.y = y
+
+
+class King:
+
+    def __init__(self, color, x, y):
+        self.x = x
+        self.y = y
+        self.color = color
+
+    def list_allowed_moves(self, board):
+        allowed_moves = [
+            (self.x + 1, self.y),
+            (self.x + 1, self.y - 1),
+            (self.x, self.y - 1),
+            (self.x - 1, self.y - 1),
+            (self.x - 1, self.y),
+            (self.x - 1, self.y + 1),
+            (self.x, self.y + 1),
+            (self.x + 1, self.y + 1)
+        ]
 
         copied_moves = allowed_moves.copy()
         for m in allowed_moves:
@@ -92,6 +122,6 @@ class Rook:
         return copied_moves
 
     def move(self, x, y):
-            if (x, y) in self.list_allowed_moves(cb):
-                self.x = x
-                self.y = y
+        if (x, y) in self.list_allowed_moves(cb):
+            self.x = x
+            self.y = y
