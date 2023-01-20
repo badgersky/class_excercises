@@ -23,20 +23,3 @@ class BankAccount:
 
     def show_info(self):
         print(f'Account number: {self.number}\nBalance: {self.cash}')
-
-
-n = 2183961239786128931233
-account1 = BankAccount(n)
-
-# account1.deposit_cash(100)
-# account1.show_info()
-# account1.deposit_cash(200)
-# account1.show_info()
-# # account1.deposit_cash(-100)
-# print(account1.withdraw_cash(100))
-# account1.show_info()
-# print(account1.withdraw_cash(1000))
-# account1.show_info()
-# # print(account1.withdraw_cash(-200))
-# # account2 = BankAccount('siema')
-# # account3 = BankAccount(1231231232123.12312312312312312)
