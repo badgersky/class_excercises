@@ -54,7 +54,22 @@ class Chessboard:
         ]
         return black_pawns, other_figures
 
+    def setup(self):
+        black_pawns, black_figures = self._create_black_figures()
+        white_pawns, white_figures = self._create_white_figures()
+        for num, row in enumerate(self.board):
+            if num == 0:
+                self.board[num] = black_figures
+            elif num == 1:
+                self.board[num] = black_pawns
+            elif num == 6:
+                self.board[num] = white_pawns
+            elif num == 7:
+                self.board[num] = white_figures
+        return self.board
+
 
 if __name__ == '__main__':
     cb = Chessboard()
+    cb.setup()
     pprint(cb.board)
