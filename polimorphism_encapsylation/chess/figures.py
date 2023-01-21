@@ -165,3 +165,22 @@ class Bishop(Figure):
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
             super().move(x, y)
+
+
+class Queen(Figure):
+
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
+
+    def list_allowed_moves(self, board):
+        diagonal = self._get_diagonal_moves(board)
+        horizontal = self._get_horizontal_moves(board)
+        allowed_moves = diagonal + horizontal
+        return allowed_moves
+
+    def move(self, x, y):
+        if (x, y) in self.list_allowed_moves(cb):
+            super().move(x, y)
+
+
+
