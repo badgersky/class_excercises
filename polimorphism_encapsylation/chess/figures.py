@@ -1,9 +1,6 @@
 from chessboard import Chessboard
 
 
-cb = Chessboard()
-
-
 class Figure:
 
     def __init__(self, color, x, y):
@@ -183,4 +180,6 @@ class Queen(Figure):
             super().move(x, y)
 
 
+if __name__ == '__main__':
+    cb = Chessboard()
 
