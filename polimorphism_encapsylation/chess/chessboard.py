@@ -1,5 +1,4 @@
 import figures as f
-from pprint import pprint
 
 
 class Chessboard:
@@ -57,19 +56,20 @@ class Chessboard:
     def setup(self):
         black_pawns, black_figures = self._create_black_figures()
         white_pawns, white_figures = self._create_white_figures()
-        for num, row in enumerate(self.board):
-            if num == 0:
-                self.board[num] = black_figures
-            elif num == 1:
-                self.board[num] = black_pawns
-            elif num == 6:
-                self.board[num] = white_pawns
-            elif num == 7:
-                self.board[num] = white_figures
+        for c, col in enumerate(self.board):
+            for r, row in enumerate(self.board):
+                if r == 0:
+                    self.board[c][r] = white_figures[c]
+                elif r == 1:
+                    self.board[c][r] = white_pawns[c]
+                elif r == 6:
+                    self.board[c][r] = black_pawns[c]
+                elif r == 7:
+                    self.board[c][r] = black_figures[c]
         return self.board
 
 
 if __name__ == '__main__':
     cb = Chessboard()
     cb.setup()
-    pprint(cb.board)
+
