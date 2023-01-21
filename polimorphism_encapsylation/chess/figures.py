@@ -25,6 +25,23 @@ class Figure:
                 copied_moves.remove(m)
         return copied_moves
 
+    def _check_horizontal_moves(self, moves):
+        for m in moves:
+            if m == (self.x, self.y):
+                moves.remove(m)
+        return moves
+
+    def _check_diagonal_moves(self, moves):
+        copied_moves = moves.copy()
+        for m in moves:
+            if m == (self.x, self.y):
+                copied_moves.remove(m)
+            if m[0] < 0 or m[0] > 7:
+                copied_moves.remove(m)
+            elif m[1] < 0 or m[1] > 7:
+                copied_moves.remove(m)
+        return copied_moves
+
     def _get_diagonal_moves(self, board):
         values = list(range(1, 8))
         allowed_moves = []
@@ -34,15 +51,7 @@ class Figure:
             allowed_moves.append((self.x - value, self.y + value))
             allowed_moves.append((self.x - value, self.y - value))
 
-        copied_moves = allowed_moves.copy()
-        for m in allowed_moves:
-            if m == (self.x, self.y):
-                copied_moves.remove(m)
-            if m[0] < 0 or m[0] > 7:
-                copied_moves.remove(m)
-            elif m[1] < 0 or m[1] > 7:
-                copied_moves.remove(m)
-        return copied_moves
+        return self._check_diagonal_moves(allowed_moves)
 
     def _get_horizontal_moves(self, board):
         values = list(range(8))
@@ -52,10 +61,7 @@ class Figure:
         for value in values:
             allowed_moves.append((value, self.y))
 
-        for m in allowed_moves:
-            if m == (self.x, self.y):
-                allowed_moves.remove(m)
-        return allowed_moves
+        return self._check_horizontal_moves(allowed_moves)
 
 
 class Pawn(Figure):
