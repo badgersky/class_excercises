@@ -16,7 +16,7 @@ class Figure:
         self.y = y
 
     @staticmethod
-    def check_moves(moves):
+    def _check_moves(moves):
         copied_moves = moves.copy()
         for m in moves:
             if m[0] < 0 or m[0] > 7:
@@ -24,6 +24,38 @@ class Figure:
             elif m[1] < 0 or m[1] > 7:
                 copied_moves.remove(m)
         return copied_moves
+
+    def _get_diagonal_moves(self, board):
+        values = list(range(1, 8))
+        allowed_moves = []
+        for value in values:
+            allowed_moves.append((self.x + value, self.y + value))
+            allowed_moves.append((self.x + value, self.y - value))
+            allowed_moves.append((self.x - value, self.y + value))
+            allowed_moves.append((self.x - value, self.y - value))
+
+        copied_moves = allowed_moves.copy()
+        for m in allowed_moves:
+            if m == (self.x, self.y):
+                copied_moves.remove(m)
+            if m[0] < 0 or m[0] > 7:
+                copied_moves.remove(m)
+            elif m[1] < 0 or m[1] > 7:
+                copied_moves.remove(m)
+        return copied_moves
+
+    def _get_horizontal_moves(self, board):
+        values = list(range(8))
+        allowed_moves = []
+        for value in values:
+            allowed_moves.append((self.x, value))
+        for value in values:
+            allowed_moves.append((value, self.y))
+
+        for m in allowed_moves:
+            if m == (self.x, self.y):
+                allowed_moves.remove(m)
+        return allowed_moves
 
 
 class Pawn(Figure):
@@ -72,7 +104,7 @@ class Knight(Figure):
                 (self.x + 1, self.y - 2)
             ]
 
-        return super().check_moves(allowed_moves)
+        return super()._check_moves(allowed_moves)
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
@@ -85,17 +117,7 @@ class Rook(Figure):
         super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
-        values = list(range(8))
-        allowed_moves = []
-        for value in values:
-            allowed_moves.append((self.x, value))
-        for value in values:
-            allowed_moves.append((value, self.y))
-
-        for m in allowed_moves:
-            if m == (self.x, self.y):
-                allowed_moves.remove(m)
-        return allowed_moves
+        return super()._get_horizontal_moves(cb)
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
@@ -119,7 +141,20 @@ class King(Figure):
             (self.x + 1, self.y + 1)
         ]
 
-        return super().check_moves(allowed_moves)
+        return super()._check_moves(allowed_moves)
+
+    def move(self, x, y):
+        if (x, y) in self.list_allowed_moves(cb):
+            super().move(x, y)
+
+
+class Bishop(Figure):
+
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
+
+    def list_allowed_moves(self, board):
+        return super()._get_diagonal_moves(cb)
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
