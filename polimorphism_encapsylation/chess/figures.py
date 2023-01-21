@@ -4,12 +4,32 @@ from chessboard import Chessboard
 cb = Chessboard()
 
 
-class Pawn:
+class Figure:
 
     def __init__(self, color, x, y):
-        self.color = color
         self.x = x
         self.y = y
+        self.color = color
+
+    def move(self, x, y):
+        self.x = x
+        self.y = y
+
+    @staticmethod
+    def check_moves(moves):
+        copied_moves = moves.copy()
+        for m in moves:
+            if m[0] < 0 or m[0] > 7:
+                copied_moves.remove(m)
+            elif m[1] < 0 or m[1] > 7:
+                copied_moves.remove(m)
+        return copied_moves
+
+
+class Pawn(Figure):
+
+    def __init__(self, color, x, y):
+        super().__init__(color, x, y)
         self.moved = False
 
     def list_allowed_moves(self, board):
@@ -30,18 +50,15 @@ class Pawn:
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
-            self.x = x
-            self.y = y
+            super().move(x, y)
         if self.moved is False:
             self.moved = True
 
 
-class Knight:
+class Knight(Figure):
 
     def __init__(self, color, x, y):
-        self.x = x
-        self.y = y
-        self.color = color
+        super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
         allowed_moves = [
@@ -54,26 +71,18 @@ class Knight:
                 (self.x + 2, self.y - 1),
                 (self.x + 1, self.y - 2)
             ]
-        copied_moves = allowed_moves.copy()
-        for m in allowed_moves:
-            if m[0] < 0 or m[0] > 7:
-                copied_moves.remove(m)
-            elif m[1] < 0 or m[1] > 7:
-                copied_moves.remove(m)
-        return copied_moves
+
+        return super().check_moves(allowed_moves)
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
-            self.x = x
-            self.y = y
+            super().move(x, y)
 
 
-class Rook:
+class Rook(Figure):
 
     def __init__(self, color, x, y):
-        self.x = x
-        self.y = y
-        self.color = color
+        super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
         values = list(range(8))
@@ -90,16 +99,13 @@ class Rook:
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
-            self.x = x
-            self.y = y
+            super().move(x, y)
 
 
-class King:
+class King(Figure):
 
     def __init__(self, color, x, y):
-        self.x = x
-        self.y = y
-        self.color = color
+        super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
         allowed_moves = [
@@ -113,15 +119,8 @@ class King:
             (self.x + 1, self.y + 1)
         ]
 
-        copied_moves = allowed_moves.copy()
-        for m in allowed_moves:
-            if m[0] < 0 or m[0] > 7:
-                copied_moves.remove(m)
-            elif m[1] < 0 or m[1] > 7:
-                copied_moves.remove(m)
-        return copied_moves
+        return super().check_moves(allowed_moves)
 
     def move(self, x, y):
         if (x, y) in self.list_allowed_moves(cb):
-            self.x = x
-            self.y = y
+            super().move(x, y)
