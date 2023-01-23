@@ -46,37 +46,3 @@ class ShoppingCart:
             total += self.quantities[idnum] * p.price
 
         return output + '\nTotal: ' + str(total) + 'zł'
-
-
-if __name__ == '__main__':
-    bread = Product('bread', 2.70)
-    ham = Product('ham', 8.40)
-    cheese = Product('cheese', 4.40)
-    chive = Product('chive', 1.50)
-    pepper = Product('pepper', 2.35)
-
-    print(bread.id)
-    print(pepper.id)
-    print(pepper.name)
-    print(pepper.price)
-
-    cart = ShoppingCart()
-    print(cart.products)
-    print(cart.quantities)
-    print(cart.get_receipt())
-
-    cart.add_product(bread)
-    cart.add_product(bread)
-    cart.add_product(bread)
-    cart.add_product(pepper)
-    cart.add_product(chive)
-    print(cart.products)
-    print(cart.quantities)
-    cart.change_product_quantity(pepper, 2)
-    print(cart.products)
-    print(cart.quantities)
-    cart.remove_product(bread)
-    print(cart.products)
-    print(cart.quantities)
-    print(cart.get_receipt())
-    
