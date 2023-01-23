@@ -34,28 +34,3 @@ class Price23Vat:
         self._tax = value
         self._net = self._tax / 0.23
         self._pretax = self._net * 1.23
-
-
-
-t1 = Price23Vat(3200)
-print(t1.net)
-print(t1.pretax)
-print(t1.tax)
-
-print(f'\nchange taxed price')
-t1.net = 3000
-print(t1.net)
-print(t1.pretax)
-print(t1.tax)
-
-print(f'\nchange pretax')
-t1.pretax = 4000
-print(t1.net)
-print(t1.pretax)
-print(t1.tax)
-
-print(f'\nchanged tax')
-t1.tax = 500
-print(t1.net)
-print(t1.pretax)
-print(t1.tax)
