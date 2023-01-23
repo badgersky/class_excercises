@@ -3,7 +3,8 @@ import figures as f
 
 class Chessboard:
 
-    def __init__(self, color='white'):
+    def __init__(self):
+        color = 'white'
         self._color = color
         self.board = [[None for _ in range(8)] for _ in range(8)]
 
@@ -76,8 +77,28 @@ class Chessboard:
             return None
         return figure.list_allowed_moves(self.board)
 
+    def move(self, from_x, from_y, to_x, to_y):
+        allowed_moves = self.list_allowed_moves(from_x, from_y)
+        if allowed_moves is not None:
+            if (to_x, to_y) in allowed_moves:
+                figure = self.board[from_x][from_y]
+                figure.move(to_x, to_y)
+                self.board[to_x][to_y] = figure
+                self.board[from_x][from_y] = None
+        else:
+            raise ValueError(f'Invalid move: {to_x, to_y}')
+
+        if self._color == 'white':
+            self.color = 'black'
+        else:
+            self.color = 'white'
+
 
 if __name__ == '__main__':
     cb = Chessboard()
     cb.setup()
+    cb.color = 'black'
+    cb.move(0, 6, 0, 4)
+    print(cb.color)
+    print(cb.board[0][4])
 
