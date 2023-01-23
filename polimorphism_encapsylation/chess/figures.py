@@ -84,10 +84,9 @@ class Pawn(Figure):
                 return []
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
         if self.moved is False:
             self.moved = True
+        super().move(x, y)
 
 
 class Knight(Figure):
@@ -110,8 +109,7 @@ class Knight(Figure):
         return super()._check_moves(allowed_moves)
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
+        super().move(x, y)
 
 
 class Rook(Figure):
@@ -120,11 +118,10 @@ class Rook(Figure):
         super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
-        return super()._get_horizontal_moves(cb)
+        return super()._get_horizontal_moves(board)
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
+        super().move(x, y)
 
 
 class King(Figure):
@@ -147,8 +144,7 @@ class King(Figure):
         return super()._check_moves(allowed_moves)
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
+        super().move(x, y)
 
 
 class Bishop(Figure):
@@ -157,11 +153,10 @@ class Bishop(Figure):
         super().__init__(color, x, y)
 
     def list_allowed_moves(self, board):
-        return super()._get_diagonal_moves(cb)
+        return super()._get_diagonal_moves(board)
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
+        super().move(x, y)
 
 
 class Queen(Figure):
@@ -176,8 +171,7 @@ class Queen(Figure):
         return allowed_moves
 
     def move(self, x, y):
-        if (x, y) in self.list_allowed_moves(cb):
-            super().move(x, y)
+        super().move(x, y)
 
 
 if __name__ == '__main__':
