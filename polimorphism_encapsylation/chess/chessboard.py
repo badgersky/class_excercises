@@ -68,6 +68,14 @@ class Chessboard:
                     self.board[c][r] = black_figures[c]
         return self.board
 
+    def list_allowed_moves(self, x, y):
+        figure = self.board[x][y]
+        if figure is None:
+            return None
+        if self.color != figure.color:
+            return None
+        return figure.list_allowed_moves(self.board)
+
 
 if __name__ == '__main__':
     cb = Chessboard()
